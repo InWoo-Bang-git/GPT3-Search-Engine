@@ -26,11 +26,10 @@ body {
     background: #f6f6f6;
     padding-top: 10px;
     overflow: hidden;
-
 }
 
 .header {
-    height: 350px;
+    height: 500px;
     display: flex;
     /*align-items: flex-end;*/
     color: #fff;
@@ -51,5 +50,25 @@ body {
     font-size: 25px;
 }
 
+.header .userQuestion {
+    width: 92%;
+    font-size: 20px;
+}
 
+.header .chatResponse {
+    width: 92%;
+    background-color:lightgray;
+    color: black;
+    padding: 10px;
+    font-size: 20px;
+}
 
+input {
+    width: 85%;
+    height: 40px;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+}

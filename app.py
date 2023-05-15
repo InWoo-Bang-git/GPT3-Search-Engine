@@ -23,7 +23,7 @@ load_dotenv()
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 loader = PyPDFLoader("./sample_data/faq.pdf")
 pages = loader.load_and_split()
 
@@ -79,12 +79,12 @@ def on_submit(input):
 #print("Welcome to Swinburne Online chatbot! Type 'exit' to stop.")
 
 app = Flask(__name__)
-'''
+
 @app.route("/")
 def home():
-    return render_template("index1.html")
+    return render_template("index.html")
 
-@app.route("/index1.html", methods=["POST"])
+@app.route("/chatbot.html", methods=["POST"])
 def chatbot():
     #pass
     
@@ -108,14 +108,18 @@ def chatbot():
     chat_history.append(f"User: {user_input}\nChatbot: {bot_response}")
 
     return render_template(
-        "/index1.html",
+        "/chatbot.html",
         user_input=user_input,
         bot_response=bot_response,
     )
 '''
 @app.route("/")
 def home():
+#<<<<<<< HEAD
+#    return render_template("index.html")
+#=======
     return render_template("index1.html")
+#>>>>>>> 097d7fc26c0b20db1e67b3e0c72638f949b88079
 
 @app.route("/get", methods=["GET", "POST"])
 def chatbot():
@@ -145,6 +149,6 @@ def chatbot():
         user_input=user_input,
         bot_response=bot_response,
     )
-
+'''
 if __name__ == "__main__":
     app.run(debug=True)
