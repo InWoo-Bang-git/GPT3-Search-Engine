@@ -23,7 +23,7 @@ load_dotenv()
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 loader = PyPDFLoader("./sample_data/faq.pdf")
 pages = loader.load_and_split()
 
@@ -40,7 +40,6 @@ def count_tokens(text: str) -> int:
     return len(tokenizer.encode(text))
 
 text_splitter = RecursiveCharacterTextSplitter(
-
     chunk_size = 512,
     chunk_overlap  = 24,
     length_function = count_tokens,
@@ -71,6 +70,16 @@ def on_submit(input):
         print("Thank you for using the State of the Union chatbot!")
         return
     
+ # check if the query is in the PDF
+    found_in_pdf = False
+    for chunk in chunks:
+        if query in chunk.page_content:
+            found_in_pdf = True
+            break
+
+    if not found_in_pdf:
+        return "I don't know"
+
     result = qa({"question": query, "chat_history": chat_history})
     chat_history.append((query, result['answer']))
     
@@ -112,43 +121,6 @@ def chatbot():
         user_input=user_input,
         bot_response=bot_response,
     )
-'''
-@app.route("/")
-def home():
-#<<<<<<< HEAD
-#    return render_template("index.html")
-#=======
-    return render_template("index1.html")
-#>>>>>>> 097d7fc26c0b20db1e67b3e0c72638f949b88079
 
-@app.route("/get", methods=["GET", "POST"])
-def chatbot():
-    #pass
-    
-    #user_input = request.form["message"]
-    user_input = request.form["msg"]
-    
-    prompt = f"User: {user_input}\nChatbot: "
-    chat_history = []
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        temperature=0.5,
-        max_tokens=60,
-        top_p=1,
-        frequency_penalty=0,
-        stop=["\nUser: ", "\nChatbot: "]
-    )
-
-    bot_response = on_submit(user_input)
-
-    chat_history.append(f"User: {user_input}\nChatbot: {bot_response}")
-
-    return render_template(
-        "/index1.html",
-        user_input=user_input,
-        bot_response=bot_response,
-    )
-'''
 if __name__ == "__main__":
     app.run(debug=True)

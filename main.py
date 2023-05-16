@@ -15,7 +15,7 @@ from langchain.chains import ConversationalRetrievalChain
 from IPython.display import display
 import ipywidgets as widgets
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 loader = PyPDFLoader("./sample_data/faq.pdf")
 pages = loader.load_and_split()
