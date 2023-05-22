@@ -14,7 +14,7 @@ from transformers import GPT2TokenizerFast
 load_dotenv()
 
 # Set OpenAI API Key
-openai.api_key = os.getenv("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")
+openai.api_key = os.getenv("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")
 
 # Load and process FAQ document
 loader = PyPDFLoader("./sample_data/faq.pdf")
